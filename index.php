@@ -1,9 +1,44 @@
-﻿<!DOCTYPE html>
+﻿<?php
+$language = isset($_REQUEST['l']) ? $_REQUEST['l'] : 'en';
+
+$message = [
+        'en' => [
+                'title' => 'Free Solitaire Spider',
+                'new_game' => 'New Game',
+                'animate' => 'Animate',
+                'options' => 'Options',
+                'sound' => 'Sound',
+                'restart' => 'Restart',
+                'undo' => 'Undo',
+                'redo' => 'Redo',
+                'game' => 'Game',
+                'difficulty' => 'Difficulty',
+                'score' => 'Score'
+        ],
+        'ru' => [
+                'title' => 'Паук пасьянс играть бесплатно',
+                'new_game' => 'Новая игра',
+                'animate' => 'Анимация',
+                'options' => 'Настройки',
+                'sound' => 'Звук',
+                'restart' => 'Рестарт',
+                'undo' => 'Отменить',
+                'redo' => 'Вернуться',
+                'game' => 'Игра',
+                'difficulty' => 'Сложность',
+                'score' => 'Счет'
+        ]
+];
+if (!isset($message[$language])) {
+    $language = 'en';
+}
+?>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width"/>
-    <title>Fuzzley - Spider Solitaire</title>
+    <title><?php echo $message[$language]['title'] ?></title>
     <link href="content/font_awesome/css/font-awesome.css" rel="stylesheet"/>
     <link href="content/site.css" rel="stylesheet"/>
     <link href="content/spider.css" rel="stylesheet"/>
@@ -17,25 +52,25 @@
     <div id="time-display" class="lite-yellow" style="display: none;" data-bind="timeShortText: board.timeElapsed"></div>
     <div id="options-wrap" style="display: none;">
         <div>
-            <label for="animate-checkbox" style="float: left;">Animate</label>
+            <label for="animate-checkbox" style="float: left;"><?php echo $message[$language]['animate'] ?></label>
             <input id="animate-checkbox" name="animate-checkbox" style="float: right;" type="checkbox" data-bind="checked: gameSettings.animate" />
         </div>
         <div class="clear"></div>
         <div>
-            <label for="sound-checkbox" style="float: left;">Sound</label>
+            <label for="sound-checkbox" style="float: left;"><?php echo $message[$language]['sound'] ?></label>
             <input id="sound-checkbox" name="sound-checkbox" style="float: right;" type="checkbox" data-bind="checked: gameSettings.volume" />
         </div>
         <div class="clear"></div>
     </div>
     <div id="game-ctrls-wrap" style="display: none;">
-        <button id="new-game-btn">New Game</button>
+        <button id="new-game-btn"><?php echo $message[$language]['new_game'] ?></button>
         <label for="difficulty-select"></label>
         <select id="difficulty-select" name="difficulty-select"
                 data-bind="options: gameSettings.difficultyOptions, optionsText: 'text', optionsValue: 'value', value: gameSettings.difficulty">
         </select>
-        <button id="restart-btn" data-bind="enable: board.gameInProgress">Restart</button>
-        <button id="undo-btn" data-bind="enable: gameHistory.canUndo">Undo (Ctrl+Z)</button>
-        <button id="redo-btn" data-bind="enable: gameHistory.canRedo">Redo (Ctrl+Y)</button>
+        <button id="restart-btn" data-bind="enable: board.gameInProgress"><?php echo $message[$language]['restart'] ?></button>
+        <button id="undo-btn" data-bind="enable: gameHistory.canUndo"><?php echo $message[$language]['undo'] ?> (Ctrl+Z)</button>
+        <button id="redo-btn" data-bind="enable: gameHistory.canRedo"><?php echo $message[$language]['redo'] ?> (Ctrl+Y)</button>
     </div>
     <div id="global-settings-open-wrap">
         <button id="global-settings-open-btn"><i class="icon-cogs"></i></button>
@@ -43,25 +78,25 @@
     <div id="dim-overlay" style="display: none;"></div>
     <div id="global-options-dlg" style="display: none;">
         <div id="global-options-header">
-            <div style="float: left;">Options</div>
+            <div style="float: left;"><?php echo $message[$language]['options'] ?></div>
             <i id="global-options-close-btn" class="icon-remove" style="float: right;"></i>
         </div>
         <div class="clear"></div>
         <fieldset class="global-options-section">
-            <legend>Game</legend>
+            <legend><?php echo $message[$language]['game'] ?></legend>
             <div style="text-align: center;">
-                <button id="glbl-game-new-game-btn">New Game</button>
+                <button id="glbl-game-new-game-btn"><?php echo $message[$language]['new_game'] ?></button>
             </div>
             <div class="clear"></div>
             <div style="text-align: center;">
-                <button id="glbl-game-restart-btn" data-bind="enable: board.gameInProgress">Restart Game</button>
+                <button id="glbl-game-restart-btn" data-bind="enable: board.gameInProgress"><?php echo $message[$language]['restart'] ?></button>
             </div>
             <div class="clear"></div>
         </fieldset>
         <fieldset class="global-options-section">
-            <legend>Settings</legend>
+            <legend><?php echo $message[$language]['options'] ?></legend>
             <div>
-                <label for="glbl-game-difficulty-select" style="float: left;">Difficulty</label>
+                <label for="glbl-game-difficulty-select" style="float: left;"><?php echo $message[$language]['difficulty'] ?></label>
                 <select id="glbl-game-difficulty-select" name="glbl-game-difficulty-select" style="float: right;"
                         data-bind="options: gameSettings.difficultyOptions, optionsText: 'text',
                         optionsValue: 'value', value: gameSettings.difficulty">
@@ -69,13 +104,13 @@
             </div>
             <div class="clear"></div>
             <div>
-                <label for="glbl-stng-animate-chk" style="float: left;">Animate</label>
+                <label for="glbl-stng-animate-chk" style="float: left;"><?php echo $message[$language]['animate'] ?></label>
                 <input id="glbl-stng-animate-chk" name="glbl-stng-animate-chk" style="float: right;" type="checkbox"
                        data-bind="checked: gameSettings.animate" />
             </div>
             <div class="clear"></div>
             <div>
-                <label for="glbl-stng-sound-chk" style="float: left;">Sound</label>
+                <label for="glbl-stng-sound-chk" style="float: left;"><?php echo $message[$language]['sound'] ?></label>
                 <input id="glbl-stng-sound-chk" name="glbl-stng-sound-chk" style="float: right;" type="checkbox"
                        data-bind="checked: gameSettings.volume" />
             </div>
@@ -84,7 +119,7 @@
         <fieldset class="global-options-section">
             <legend>Windows</legend>
             <div>
-                <label for="glbl-wnd-score-chk" style="float: left;">Score</label>
+                <label for="glbl-wnd-score-chk" style="float: left;"><?php echo $message[$language]['score'] ?></label>
                 <input id="glbl-wnd-score-chk" name="glbl-wnd-score-chk" style="float: right;" type="checkbox" data-bind="checked: uiSettings.windows.score.vm.isOpen"/>
             </div>
             <div class="clear"></div>
