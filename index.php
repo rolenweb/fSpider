@@ -13,10 +13,21 @@ $message = [
                 'redo' => 'Redo',
                 'game' => 'Game',
                 'difficulty' => 'Difficulty',
-                'score' => 'Score'
+                'score' => 'Score',
+                'moves' => 'Moves',
+                'time' => 'Time',
+                'windows' => 'Windows',
+                'confirm_new_game' => 'Are you sure you want to start a new game? Your current game will be replaced.',
+                'confirm_restart_game' => 'Are you sure you want to restart this game? Your progress will be lost.',
+                'suit_1' => '1 Suit',
+                'suit_2' => '2 Suits',
+                'suit_4' => '4 Suits',
+                'skip_ads' => 'Skip Ads',
+                'sec' => 'sec',
+                'ad' => 'Ad',
         ],
         'ru' => [
-                'title' => 'Паук пасьянс играть бесплатно',
+                'title' => 'Паук пасьянс играть бесплатно | пасьянс паук 2 масти | пасьянс паук 4 масти',
                 'new_game' => 'Новая игра',
                 'animate' => 'Анимация',
                 'options' => 'Настройки',
@@ -26,13 +37,80 @@ $message = [
                 'redo' => 'Вернуться',
                 'game' => 'Игра',
                 'difficulty' => 'Сложность',
-                'score' => 'Счет'
+                'score' => 'Счет',
+                'moves' => 'Перемещения',
+                'time' => 'Время',
+                'windows' => 'Окна',
+                'confirm_new_game' => 'Вы уверены что хотите начать новую игру?',
+                'confirm_restart_game' => 'Вы уверены что хотите заново запустить эту игру? Ваш текущий результат будет потерян.',
+                'suit_1' => '1 Масть',
+                'suit_2' => '2 Масти',
+                'suit_4' => '4 Масти',
+                'skip_ads' => 'Пропустить рекламу',
+                'sec' => 'сек',
+                'ad' => 'Реклама',
         ]
 ];
 if (!isset($message[$language])) {
     $language = 'en';
 }
+
+$ads = [
+    'ru' => [
+        'video' => [
+            [
+                'target' => 'https://totalbattle.com/',
+                'src' => 'video_1.mp4',
+                'type' => 'video/mp4'
+            ],
+            [
+                'target' => 'https://totalbattle.com/',
+                'src' => 'video_2.mp4',
+                'type' => 'video/mp4'
+            ],
+            [
+                'target' => 'https://www.warframe.com/',
+                'src' => 'WF_Hildryn_EvergreenAd_1920x1080_60fps_h264_FNL.mp4',
+                'type' => 'video/mp4'
+            ],
+
+            [
+                'target' => 'https://plarium.com/landings/ru/desktop/raid/icegolem_f036_a_rdoapp',
+                'src' => 'RAD_Luda_Dragon_1920x1080_EN_v01_no-OS_20sec_3822_IMG=1KGB.mp4',
+                'type' => 'video/mp4'
+            ]
+
+
+        ]
+    ],
+    'en' => [
+        'video' => [
+            [
+                'target' => 'https://totalbattle.com/',
+                'src' => 'video_1.mp4',
+                'type' => 'video/mp4'
+            ],
+            [
+                'target' => 'https://totalbattle.com/',
+                'src' => 'video_2.mp4',
+                'type' => 'video/mp4'
+            ],
+            [
+                'target' => 'https://www.warframe.com/',
+                'src' => 'WF_Hildryn_EvergreenAd_1920x1080_60fps_h264_FNL.mp4',
+                'type' => 'video/mp4'
+            ],
+
+            [
+                'target' => 'https://plarium.com/landings/ru/desktop/raid/icegolem_f036_a_rdoapp',
+                'src' => 'RAD_Luda_Dragon_1920x1080_EN_v01_no-OS_20sec_3822_IMG=1KGB.mp4',
+                'type' => 'video/mp4'
+            ]
+        ]
+    ],
+];
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,6 +120,8 @@ if (!isset($message[$language])) {
     <link href="content/font_awesome/css/font-awesome.css" rel="stylesheet"/>
     <link href="content/site.css" rel="stylesheet"/>
     <link href="content/spider.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="content/images/favicon.ico" type="image/x-icon">
+
 </head>
 <body>
 <div id="canvas-wrap">
@@ -88,7 +168,7 @@ if (!isset($message[$language])) {
                 <button id="glbl-game-new-game-btn"><?php echo $message[$language]['new_game'] ?></button>
             </div>
             <div class="clear"></div>
-            <div style="text-align: center;">
+            <div style="text-align: center;margin-top: 5px;">
                 <button id="glbl-game-restart-btn" data-bind="enable: board.gameInProgress"><?php echo $message[$language]['restart'] ?></button>
             </div>
             <div class="clear"></div>
@@ -117,30 +197,30 @@ if (!isset($message[$language])) {
             <div class="clear"></div>
         </fieldset>
         <fieldset class="global-options-section">
-            <legend>Windows</legend>
+            <legend><?php echo $message[$language]['windows'] ?></legend>
             <div>
                 <label for="glbl-wnd-score-chk" style="float: left;"><?php echo $message[$language]['score'] ?></label>
                 <input id="glbl-wnd-score-chk" name="glbl-wnd-score-chk" style="float: right;" type="checkbox" data-bind="checked: uiSettings.windows.score.vm.isOpen"/>
             </div>
             <div class="clear"></div>
             <div>
-                <label for="glbl-wnd-moves-chk" style="float: left;">Moves</label>
+                <label for="glbl-wnd-moves-chk" style="float: left;"><?php echo $message[$language]['moves'] ?></label>
                 <input id="glbl-wnd-moves-chk" name="glbl-wnd-moves-chk" style="float: right;" type="checkbox"  data-bind="checked: uiSettings.windows.moves.vm.isOpen"/>
             </div>
             <div class="clear"></div>
             <div>
-                <label for="glbl-wnd-time-chk" style="float: left;">Time</label>
+                <label for="glbl-wnd-time-chk" style="float: left;"><?php echo $message[$language]['time'] ?></label>
                 <input id="glbl-wnd-time-chk" name="glbl-wnd-time-chk" style="float: right;" type="checkbox"  data-bind="checked: uiSettings.windows.time.vm.isOpen"/>
             </div>
             <div class="clear"></div>
             <div>
-                <label for="glbl-wnd-options-chk" style="float: left;">Options</label>
+                <label for="glbl-wnd-options-chk" style="float: left;"><?php echo $message[$language]['options'] ?></label>
                 <input id="glbl-wnd-options-chk" name="glbl-wnd-options-chk" style="float: right;" type="checkbox"
                        data-bind="checked: uiSettings.windows.options.vm.isOpen"/>
             </div>
             <div class="clear"></div>
             <div>
-                <label for="glbl-wnd-game-chk" style="float: left;">Game</label>
+                <label for="glbl-wnd-game-chk" style="float: left;"><?php echo $message[$language]['game'] ?></label>
                 <input id="glbl-wnd-game-chk" name="glbl-wnd-game-chk" style="float: right;" type="checkbox"  data-bind="checked: uiSettings.windows.game.vm.isOpen"/>
             </div>
             <div class="clear"></div>
@@ -172,6 +252,7 @@ if (!isset($message[$language])) {
 <script src="scripts/spider/fSpider.card.groups.js"></script>
 <script src="scripts/spider/fSpider.board.js"></script>
 <script src="scripts/spider/fSpider.debug.js"></script>
+<script src="scripts/ads/ads.js"></script>
 
 <script type="text/javascript">
 var fSpider = fSpider || {};
@@ -182,6 +263,8 @@ fSpider.ctrlKeyCode = 17;
 fSpider.ctrlDown = false;
 fSpider.undoKey = 'Z';
 fSpider.redoKey = 'Y';
+
+let ads;
 
 fSpider.init = function () {
     var stage = fSpider.initStage();
@@ -234,6 +317,12 @@ fSpider.initBoard = function (stage) {
 
 fSpider.initUI = function (stage, board) {
     fSpider.uiSettings = new fSpider.UISettings();
+
+    fSpider.uiSettings.options.windows.options.title = messageLang.options;
+    fSpider.uiSettings.options.windows.game.title = messageLang.game;
+    fSpider.uiSettings.options.windows.score.title = messageLang.score;
+    fSpider.uiSettings.options.windows.moves.title = messageLang.moves;
+    fSpider.uiSettings.options.windows.time.title = messageLang.time;
 
     //setup external ui
     fSpider.initGameControls(fSpider.uiSettings);
@@ -337,15 +426,20 @@ fSpider.closeOptionsPane = function () {
 };
 
 fSpider.startNewGame = function () {
-    if (fSpider.board.gameInProgress !== true || confirm("Are you sure you want to start a new game? Your current game will be replaced.") === true) {
-        fSpider.board.startNewGame();
+    if (fSpider.board.gameInProgress !== true || confirm(messageLang.confirm_new_game) === true) {
+        if (ads.turnOn){
+            ads.showVideoAds();
+        }else{
+            fSpider.board.startNewGame();
+        }
+
         return true;
     }
     return false;
 };
 
 fSpider.restartGame = function () {
-    if (fSpider.board.gameInProgress === true && confirm("Are you sure you want to restart this game? Your progress will be lost.") === true) {
+    if (fSpider.board.gameInProgress === true && confirm(messageLang.confirm_restart_game) === true) {
         fSpider.board.restartGame();
         return true;
     }
@@ -354,7 +448,19 @@ fSpider.restartGame = function () {
 
 $(window).load(function () {
     fSpider.init();
+    ads = new Ads(true, document.getElementById('ads'), messageLang, <?php echo json_encode($ads[$language]) ?>);
+    if (ads.turnOn){
+        ads.element.addEventListener('ClickSkipAdsButton', function () {
+            fSpider.board.startNewGame();
+        });
+    }
 });
+const messageLang = <?php echo json_encode($message[$language]) ?>;
+localStorage.setItem('messageLang', JSON.stringify(messageLang));
+
 </script>
+<div id="ads" style="position: absolute; background-color: black;width: 100%;height: 100%;z-index: 1000;top: 0;left: 0">
+
+</div>
 </body>
 </html>

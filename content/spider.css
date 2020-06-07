@@ -209,7 +209,7 @@
 #global-options-dlg {
     opacity: 0.9;
     position: absolute;
-    width: 11em;
+    width: 13em;
     height: 23em;
     z-index: 1001;
     background: black;
@@ -254,7 +254,7 @@
 
 .global-options-section {
     border-radius: .5em;
-    margin-bottom: -.25em;
+    margin-bottom: 0;
     padding: .4em;
 }
 

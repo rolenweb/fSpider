@@ -151,9 +151,9 @@ fSpider.GameSettings = (function (GameSettings, $, ko, undefined) {
         this.volume = ko.observable();
         this.difficulty = ko.observable();
         this.difficultyOptions = ko.observableArray([
-            { text: '1 Suit', value: GameSettings.prototype.DIFFICULTIES.ONE_SUIT },
-            { text: '2 Suits', value: GameSettings.prototype.DIFFICULTIES.TWO_SUIT },
-            { text: '4 Suits', value: GameSettings.prototype.DIFFICULTIES.FOUR_SUIT }
+            { text: JSON.parse(localStorage.getItem('messageLang')).suit_1, value: GameSettings.prototype.DIFFICULTIES.ONE_SUIT },
+            { text: JSON.parse(localStorage.getItem('messageLang')).suit_2, value: GameSettings.prototype.DIFFICULTIES.TWO_SUIT },
+            { text: JSON.parse(localStorage.getItem('messageLang')).suit_4, value: GameSettings.prototype.DIFFICULTIES.FOUR_SUIT }
         ]);
         this.animTime = ko.observable();
         this.animDelay = ko.observable();
@@ -253,7 +253,7 @@ fSpider.UISettings = (function (UISettings, $, ko, undefined) {
                 elementId: 'score-display',
                 id: 'score-display-modal',
                 title: 'Score',
-                position: { top: '', bottom: '60px', left: '95px', right: '' },
+                position: { top: '', bottom: '60px', left: '105px', right: '' },
                 modalState: 1,
                 draggableOptions: {
                     containment: '#ui-container',
@@ -272,7 +272,7 @@ fSpider.UISettings = (function (UISettings, $, ko, undefined) {
                 elementId: 'moves-display',
                 id: 'moves-display-modal',
                 title: 'Moves',
-                position: { top: '', bottom: '60px', left: '150px', right: '' },
+                position: { top: '', bottom: '60px', left: '155px', right: '' },
                 modalState: 1,
                 draggableOptions: {
                     containment: '#ui-container',
@@ -291,7 +291,7 @@ fSpider.UISettings = (function (UISettings, $, ko, undefined) {
                 elementId: 'time-display',
                 id: 'time-display-modal',
                 title: 'Time',
-                position: { top: '', bottom: '60px', left: '210px', right: '' },
+                position: { top: '', bottom: '60px', left: '255px', right: '' },
                 modalState: 1,
                 draggableOptions: {
                     containment: '#ui-container',

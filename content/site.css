@@ -12,6 +12,7 @@ body {
     font-family: "Segoe UI", Verdana, Helvetica, sans-serif;
     color: #232323;
     background-color: #fff;
+    position: relative;
 }
 
 header, footer, nav, section {
