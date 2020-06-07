@@ -459,7 +459,7 @@ const messageLang = <?php echo json_encode($message[$language]) ?>;
 localStorage.setItem('messageLang', JSON.stringify(messageLang));
 
 </script>
-<div id="ads" style="position: absolute; background-color: black;width: 100%;height: 100%;z-index: 1000;top: 0;left: 0">
+<div id="ads" style="position: absolute; background-color: black;width: 100%;height: 100%;z-index: 1000;top: 0;left: 0; overflow: hidden">
 
 </div>
 </body>

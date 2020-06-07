@@ -92,6 +92,7 @@ class Ads {
         container.setAttribute('rel', 'sponsored nofollow');
         container.setAttribute('target', '_blank');
         let video = document.createElement('video');
+        //video.poster = 'content/images/loader.gif';
         video.autoplay = true;
         video.style.width = 'inherit';
         video.style.height = 'inherit';
