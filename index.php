@@ -427,12 +427,7 @@ fSpider.closeOptionsPane = function () {
 
 fSpider.startNewGame = function () {
     if (fSpider.board.gameInProgress !== true || confirm(messageLang.confirm_new_game) === true) {
-        if (ads.turnOn){
-            ads.showVideoAds();
-        }else{
-            fSpider.board.startNewGame();
-        }
-
+        fSpider.board.startNewGame();
         return true;
     }
     return false;
@@ -449,11 +444,7 @@ fSpider.restartGame = function () {
 $(window).load(function () {
     fSpider.init();
     ads = new Ads(true, document.getElementById('ads'), messageLang, <?php echo json_encode($ads[$language]) ?>);
-    if (ads.turnOn){
-        ads.element.addEventListener('ClickSkipAdsButton', function () {
-            fSpider.board.startNewGame();
-        });
-    }
+    fSpider.board.startNewGame();
 });
 const messageLang = <?php echo json_encode($message[$language]) ?>;
 localStorage.setItem('messageLang', JSON.stringify(messageLang));

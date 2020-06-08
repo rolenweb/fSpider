@@ -13,14 +13,22 @@ class Ads {
 
     }
     init(){
+        const _this = this;
+        this.time_work = 0;
         this.defaultTimeout = 5;
         this.timeout = 5;
         this.currentAdvertiserIndex = 0;
         this.maxAdvertiserIndex = this.advertisers.video.length - 1;
+        this.startInterval = 60;
+        this.nextInterval = 300;
+        this.timeoutBeforeAd = 5;
         this.initVideoAds();
         this.initSkipAdsButton();
         this.initLabel();
 
+        this.hide();
+
+        this.ticker();
     }
     initLabel(){
         let label = document.createElement('div');
@@ -44,7 +52,9 @@ class Ads {
         this.label = {
             'label': label,
         }
-        this.element.appendChild(label);
+        document.body.appendChild(label);
+
+        this.hideLabel();
     }
     initSkipAdsButton(){
         let button = document.createElement('div');
@@ -77,9 +87,6 @@ class Ads {
         this.skipAdsButton.button.appendChild(content);
         this.element.appendChild(this.skipAdsButton.button)
 
-        //set timer
-        this.setTimeoutToSkipAdsButton();
-
         //event
         this.skipAdsButton.button.addEventListener('click', (event) => this.onClickSkipAdsButton() )
 
@@ -92,8 +99,6 @@ class Ads {
         container.setAttribute('rel', 'sponsored nofollow');
         container.setAttribute('target', '_blank');
         let video = document.createElement('video');
-        //video.poster = 'content/images/loader.gif';
-        video.autoplay = true;
         video.style.width = 'inherit';
         video.style.height = 'inherit';
         this.video = {
@@ -107,7 +112,12 @@ class Ads {
         this.video.container.addEventListener('click', function () {
 
         });
+
+        this.video.video.addEventListener('loadeddata', function () {
+
+        })
     }
+
     updateVideo(){
         this.video.video.src = 'content/video/' + this.advertisers.video[this.currentAdvertiserIndex].src;
         this.video.video.type = this.advertisers.video[this.currentAdvertiserIndex].type;
@@ -123,17 +133,30 @@ class Ads {
     showVideoAds(){
         this.show();
         this.updateVideo();
+        this.video.video.play();
         this.resetTimeout();
         this.setTimeoutToSkipAdsButton();
     }
-    setContentSkipAds(content){
-        this.skipAdsButton.content.textContent = content;
+    hideVideoAds(){
+        this.video.container.style.display = 'none';
+    }
+    showSkipAdsButton(){
+        this.skipAdsButton.button.style.display = 'block';
     }
     hideSkipAdsButton(){
         this.skipAdsButton.button.style.display = 'none';
     }
-    showSkipAdsButton(){
-        this.skipAdsButton.button.style.display = 'block';
+    showLabel(){
+        this.label.label.style.display = 'block';
+    }
+    hideLabel(){
+        this.label.label.style.display = 'none';
+    }
+    setLabelContent(content){
+        this.label.label.textContent = content;
+    }
+    setContentSkipAds(content){
+        this.skipAdsButton.content.textContent = content;
     }
     setTimeoutToSkipAdsButton(){
         const _this = this;
@@ -163,10 +186,44 @@ class Ads {
         }
         this.hide();
         this.video.video.pause();
-        this.updateCurrentAdvertiserIndex();
+        this.updateCurrentAdvertiserIndex()
+
+        this.hideLabel();
 
         this.element.dispatchEvent(new CustomEvent('ClickSkipAdsButton'));
     }
 
+    ticker(){
+        const _this = this;
+        setTimeout(function () {
+            _this.time_work++;
+            let remainder = _this.remainderTimeToNextRunning();
+            if (remainder < _this.timeoutBeforeAd){
+                _this.showLabel();
+                _this.setLabelContent( _this.messageLang.ad+' '+remainder+' '+_this.messageLang.sec)
+            }
+            if(_this.time_work <= _this.startInterval && _this.time_work >= _this.startInterval - _this.timeoutBeforeAd){
+                _this.showLabel();
+                _this.setLabelContent( _this.messageLang.ad+' '+parseInt(_this.startInterval-_this.time_work) +' '+_this.messageLang.sec)
+            }
+            if (_this.time_work == _this.startInterval){
+                _this.showVideoAds();
+            }else if(_this.time_work > _this.startInterval){
+                if (remainder == 0){
+                    _this.showVideoAds();
+                }
+            }else{
+
+            }
+
+            _this.ticker();
+        },1000)
+    }
+    remainderTimeToNextRunning(){
+        let interval = this.nextInterval;
+        let ceil = Math.ceil(this.time_work / interval);
+
+        return interval * ceil - this.time_work;
+    }
 
 }
