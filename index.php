@@ -453,5 +453,20 @@ localStorage.setItem('messageLang', JSON.stringify(messageLang));
 <div id="ads" style="position: absolute; background-color: black;width: 100%;height: 100%;z-index: 1000;top: 0;left: 0; overflow: hidden">
 
 </div>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(64732165, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true,
+        ecommerce:"dataLayer"
+    });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/64732165" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </body>
 </html>
