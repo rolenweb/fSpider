@@ -115,7 +115,11 @@ class Ads {
 
         this.video.video.addEventListener('loadeddata', function () {
 
-        })
+        });
+
+        this.video.container.addEventListener('click', function () {
+            ym(64732165,'reachGoal','click_vidoe_ads');
+        });
     }
 
     updateVideo(){
@@ -136,6 +140,7 @@ class Ads {
         this.video.video.play();
         this.resetTimeout();
         this.setTimeoutToSkipAdsButton();
+        ym(64732165,'reachGoal','show_ads');
     }
     hideVideoAds(){
         this.video.container.style.display = 'none';

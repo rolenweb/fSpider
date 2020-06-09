@@ -437,6 +437,7 @@ fSpider.startNewGame = function () {
 fSpider.restartGame = function () {
     if (fSpider.board.gameInProgress === true && confirm(messageLang.confirm_restart_game) === true) {
         fSpider.board.restartGame();
+        ym(64732165,'reachGoal','restart_game')
         return true;
     }
     return false;
