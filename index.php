@@ -463,6 +463,7 @@ localStorage.setItem('messageLang', JSON.stringify(messageLang));
         clickmap:true,
         trackLinks:true,
         accurateTrackBounce:true,
+        webvisor:true,
         ecommerce:"dataLayer"
     });
 </script>
