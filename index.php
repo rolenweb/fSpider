@@ -428,6 +428,7 @@ fSpider.closeOptionsPane = function () {
 fSpider.startNewGame = function () {
     if (fSpider.board.gameInProgress !== true || confirm(messageLang.confirm_new_game) === true) {
         fSpider.board.startNewGame();
+        ym(64732165,'reachGoal','new_game');
         return true;
     }
     return false;

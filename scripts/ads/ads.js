@@ -191,6 +191,9 @@ class Ads {
         this.hideLabel();
 
         this.element.dispatchEvent(new CustomEvent('ClickSkipAdsButton'));
+
+
+        ym(64732165,'reachGoal','skip_ads');
     }
 
     ticker(){
